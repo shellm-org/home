@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+## \brief Shellm project framework.
+
+shellm-include shellm/shellman/lib/shellman.sh
+
+[ $# -eq 0 ] && shellman_usage
+
+main() {
+  case "$1" in
+    ## \option -h, --help
+    ## Print this help and exit.
+    -h|--help) shellman "$0"; exit 0 ;;
+  esac
+
+  local d dir
+  if [ $# -eq 0 ]; then
+    dir="${PWD}"
+  else
+    dir="$1"
+    if [ ! -d "${dir}" ]; then
+      mkdir -p "${dir}" || return 1
+    fi
+  fi
+  cp -ir "${SHELLM_ROOT}/initbase"/* "${dir}"
+  for d in bin data man/man1 man/man3; do
+    mkdir -p "${dir}/$d"
+  done
+}
+
+## \usage project [-h]
+main "$@"

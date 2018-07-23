@@ -1,0 +1,55 @@
+#!/bin/bash
+
+## \brief Create a new library in your shellm/usr/lib directory.
+## \require coreutils
+
+## \desc This script creates a new file in your shellm/usr/lib directory,
+## writes some documentation lines and others, then
+## opens it for you to write the rest of the code.
+
+shellm-include core/shellman.sh
+
+[ $# -eq 0 ] && usage
+
+main() {
+  case $1 in
+    ## \option -h, --help
+    ## Prints this help and exit
+    -h|--help) shellman "$0"; exit 0 ;;
+  esac
+
+  local header library_file="$1"
+
+  if [ "${library_file##*.}" != 'sh' ]; then
+    library_file="${library_file}.sh"
+  fi
+
+  # Test if the library already exists
+  # shellcheck disable=SC2154
+  if [ -f "${SHELLM_USR}/lib/${library_file}" ]; then
+    echo "shellm: new-lib: ${library_file} already exists in ${SHELLM_USR}/lib" >&2
+    return 1
+  fi
+
+  header="${library_file//[\/.]/_}"
+  header="__${header^^}"
+
+  {
+    echo "if ndef ${header}; then"
+    echo "define ${header} \"my_function\""
+    echo
+    echo '## \brief ...'
+    echo
+    echo 'my_function() {'
+    echo '  echo "do something"'
+    echo '}'
+    echo
+    echo "fi  # ${header}"
+	} >"${SHELLM_USR}/lib/${library_file}"
+
+  # Open the file
+  vim "${SHELLM_USR}/lib/${library_file}"
+}
+
+## \usage new-lib FILENAME | -h
+main "$@"

@@ -1,0 +1,14 @@
+#!/bin/bash
+## \usage shellm-run script args
+## \brief Load shellm then run a script.
+export XRUN=1
+
+if ! command -v basher &>/dev/null && [ -d "${HOME}/.basher/bin" ]; then
+  export PATH="${HOME}/.basher/bin:${PATH}"
+  eval "$(basher init -)"
+fi
+
+include shellm/shellm init.sh
+
+shellm include shellm/project/lib/project.sh
+project-load /media/pawamoy/Data/git/pawamoy/shellmpawamoy/profile
