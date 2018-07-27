@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+shellm include shellm/shellman/lib/shellman.sh
+
+[ $# -eq 0 ] && shellman_usage
+
+get_template_path() {
+  case $1 in
+    /*|./*|../*)
+      [ -f "$1" ] && { echo "$1"; return 0; }
+      return 1
+    ;;
+  esac
+
+  custom_template_path="$(home-data home-new)/$1"
+  if [ -f "${custom_template_path}" ]; then
+    echo "${custom_template_path}"
+    return 0
+  fi
+
+  builtin_template_path="$(basher package-path shellm/home/templates/$1)"
+  if [ -f "${builtin_template_path}" ]; then
+    echo "${builtin_template_path}"
+    return 0
+  fi
+
+  echo "$1"
+  return 1
+}
+
+main() {
+  local TEMPLATE=script
+  local NEW_FILE_PATH
+
+  while [ $# -ne 0 ]; do
+    case "$1" in
+      ## \option -h, --help
+      ## Print this help and exit.
+      -h|--help) shellman "$0"; exit 0 ;;
+      ## \option -t, --template TEMPLATE
+      ## Use this template to create the file.
+      -t|--template) TEMPLATE="$2"; shift ;;
+      *) NEW_FILE_PATH="$1" ;;
+    esac
+    shift
+  done
+
+  if ! TEMPLATE="$(get_template_path "${TEMPLATE}")"; then
+    echo "home-new: template not found: ${TEMPLATE}" >&2
+    return 1
+  fi
+
+  # Test if the script already exists
+  # shellcheck disable=SC2154
+  if [ -f "${SHELLM_HOME}/$1" ]; then
+    echo "home-new: $1 already exists in ${SHELLM_HOME}" >&2
+    return 1
+  fi
+
+  sed "s/{FILENAME}/$(basename "$1")/g" "${TEMPLATE}" >"${SHELLM_HOME}/$1"
+
+  # Open the file
+  editor "${SHELLM_HOME}/$1"
+}
+
+main "$@"

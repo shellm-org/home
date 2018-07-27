@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-## \brief Shellm project framework.
-
-shellm-include shellm/shellman/lib/shellman.sh
+shellm include shellm/shellman/lib/shellman.sh
 
 [ $# -eq 0 ] && shellman_usage
 
@@ -22,11 +20,9 @@ main() {
       mkdir -p "${dir}" || return 1
     fi
   fi
-  cp -ir "${SHELLM_ROOT}/initbase"/* "${dir}"
-  for d in bin data man/man1 man/man3; do
+  for d in bin lib/env data man/man1 man/man3 tests; do
     mkdir -p "${dir}/$d"
   done
+  
+  echo 'shellm include "env/hello.sh"' > "${dir}/profile"
 }
-
-## \usage project [-h]
-main "$@"
