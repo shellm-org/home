@@ -10,5 +10,7 @@ fi
 
 include shellm/shellm init.sh
 
-shellm include shellm/project/lib/project.sh
-project-load /media/pawamoy/Data/git/pawamoy/shellmpawamoy/profile
+shellm include shellm/home/lib/home.sh
+home-set && home-source profile
+
+"$@"

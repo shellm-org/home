@@ -41,7 +41,7 @@ home-set() {
   elif [ -e "${HOME}/.shellm-home" ]; then
     SHELLM_HOME="$(readlink -f "${HOME}/.shellm-home")"
   else
-    echo "home-use: no home loaded, try 'shellm help home-use' to see how shellm-home directories are loaded" >&2
+    echo "home-use: no home loaded, try 'home-set --help' to see how home directories are set" >&2
     return 1
   fi
 
@@ -51,8 +51,13 @@ home-set() {
     export PATH="${SHELLM_HOME}/bin:${PATH}"
   fi
 
-  export MANPATH="${SHELLM_HOME}/man:${MANPATH}"
-  export LIBPATH="${SHELLM_HOME}/lib:${LIBPATH}"
+  if ! echo "${MANPATH}" | grep -q "${SHELLM_HOME}/man"; then
+    export MANPATH="${SHELLM_HOME}/man:${MANPATH}"
+  fi
+
+  if ! echo "${LIBPATH}" | grep -q "${SHELLM_HOME}/lib"; then
+    export LIBPATH="${SHELLM_HOME}/lib:${LIBPATH}"
+  fi
 }
 export -f home-set
 
