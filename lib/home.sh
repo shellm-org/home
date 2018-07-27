@@ -38,7 +38,7 @@ home-set() {
       echo "home-use: no such directory: ${SHELLM_HOME} (from SHELLM_HOME variable)" >&2
       return 1
     fi
-  elif [ -f "${HOME}/.shellm-home" ]; then
+  elif [ -e "${HOME}/.shellm-home" ]; then
     SHELLM_HOME="$(readlink -f "${HOME}/.shellm-home")"
   else
     echo "home-use: no home loaded, try 'shellm help home-use' to see how shellm-home directories are loaded" >&2
