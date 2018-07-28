@@ -24,24 +24,24 @@ export -f home
 
 home-set() {
   if [ $# -gt 1 ]; then
-    echo "home-use: too many arguments" >&2
+    echo "home-set: too many arguments" >&2
     return 1
   elif [ $# -eq 1 ]; then
     if [ -d "$1" ]; then
       SHELLM_HOME="$1"
     else
-      echo "home-use: no such directory: $1 (from argument 1)" >&2
+      echo "home-set: no such directory: $1 (from argument 1)" >&2
       return 1
     fi
   elif [ -n "${SHELLM_HOME}" ]; then
     if ! [ -d "${SHELLM_HOME}" ]; then
-      echo "home-use: no such directory: ${SHELLM_HOME} (from SHELLM_HOME variable)" >&2
+      echo "home-set: no such directory: ${SHELLM_HOME} (from SHELLM_HOME variable)" >&2
       return 1
     fi
   elif [ -e "${HOME}/.shellm-home" ]; then
     SHELLM_HOME="$(readlink -f "${HOME}/.shellm-home")"
   else
-    echo "home-use: no home loaded, try 'home-set --help' to see how home directories are set" >&2
+    echo "home-set: no home loaded, try 'home-set --help' to see how home directories are set" >&2
     return 1
   fi
 

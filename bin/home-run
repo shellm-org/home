@@ -10,7 +10,7 @@ fi
 
 include shellm/shellm init.sh
 
-shellm include shellm/home/lib/home.sh
+shellm-source shellm/home/lib/home.sh
 home-set && home-source profile
 
 "$@"

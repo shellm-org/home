@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-shellm include shellm/shellman/lib/shellman.sh
+shellm-source shellm/shellman/lib/shellman.sh
 
 [ $# -eq 0 ] && shellman_usage
 

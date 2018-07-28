@@ -31,5 +31,5 @@ As a library:
 # with basher's include
 include shellm/home lib/home.sh
 # with shellm's include
-shellm-include shellm/home lib/home.sh
+shellm-source shellm/home lib/home.sh
 ```
