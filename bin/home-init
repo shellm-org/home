@@ -2,8 +2,6 @@
 
 shellm-source shellm/shellman/lib/shellman.sh
 
-[ $# -eq 0 ] && shellman_usage
-
 main() {
   case "$1" in
     ## \option -h, --help
@@ -15,7 +13,7 @@ main() {
   if [ $# -eq 0 ]; then
     dir="${PWD}"
   else
-    dir="$1"
+    dir="$(cd "$1" && pwd || echo "$1")"
     if [ ! -d "${dir}" ]; then
       mkdir -p "${dir}" || return 1
     fi
