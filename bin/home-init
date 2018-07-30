@@ -23,9 +23,11 @@ main() {
   done
 
   {
-    echo "  This message is printed from your first library file, located at ${SHELLM_HOME}/lib/env."
-    echo "  Feel free to delete it with 'home rm lib/env/hello.sh'"
-    echo "  Or modify it with 'home vim lib/env/hello.sh'."
+    echo "cat <<EOF"
+    echo 'This message is printed from your first library file, located at ${SHELLM_HOME}/lib/env.'
+    echo "Feel free to delete it with 'home rm lib/env/hello.sh'"
+    echo "Or modify it with home 'vim lib/env/hello.sh'."
+    echo "EOF"
   } > "${dir}/lib/env/hello.sh"
 
   for test_file in $(basher package-path shellm/home)/tests/{data.bash,test_{shellcheck,shellman}.bats}; do
@@ -35,7 +37,7 @@ main() {
   echo 'shellm-source "env/hello.sh"' > "${dir}/profile"
 
   echo "home-init: home initialized in ${dir}"
-  echo "Set it with home-set ${dir}"
+  echo "Set it with 'home-set ${dir}', then 'home-source profile'"
 }
 
 main "$@"
