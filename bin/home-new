@@ -57,7 +57,8 @@ main() {
     return 1
   fi
 
-  sed "s/{FILENAME}/$(basename "$1")/g" "${TEMPLATE}" >"${SHELLM_HOME}/$1"
+  cp "${TEMPLATE}" "${SHELLM_HOME}/$1"
+  sed -i "s/{FILENAME}/$(basename "$1")/g" "${SHELLM_HOME}/$1"
 
   # Open the file
   editor "${SHELLM_HOME}/$1"

@@ -13,6 +13,7 @@ home() {
   elif command -v "${cmd}" &>/dev/null; then
     if pushd "${SHELLM_HOME}" >/dev/null; then
       "$@"
+      # shellcheck disable=SC2164
       popd >/dev/null
     fi
   else
@@ -28,7 +29,7 @@ home-set() {
     return 1
   elif [ $# -eq 1 ]; then
     if [ -d "$1" ]; then
-      SHELLM_HOME="$1"
+      SHELLM_HOME="$(cd "$1" && pwd || echo "$1")"
     else
       echo "home-set: no such directory: $1 (from argument 1)" >&2
       return 1
@@ -41,7 +42,7 @@ home-set() {
   elif [ -e "${HOME}/.shellm-home" ]; then
     SHELLM_HOME="$(readlink -f "${HOME}/.shellm-home")"
   else
-    echo "home-set: no home loaded, try 'home-set --help' to see how home directories are set" >&2
+    echo "home-set: no home set, try 'home-set --help' to see how home directories are set" >&2
     return 1
   fi
 

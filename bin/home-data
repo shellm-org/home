@@ -2,8 +2,6 @@
 
 shellm-source shellm/shellman/lib/shellman.sh
 
-[ $# -eq 0 ] && shellman_usage
-
 main() {
   case "$1" in
     ## \option -h, --help
@@ -11,16 +9,29 @@ main() {
     -h|--help) shellman "$0"; exit 0 ;;
   esac
 
-  local script="${1:-$0}"
+  local data_dir
+  local script="$1"
 
-  # shellcheck disable=SC2154
-  local data_dir="${SHELLM_HOME}/data/${script##*/}"
+  if ! [ -z "${SHELLM_HOME+x}" ]; then
+    # shellcheck disable=SC2154
+    data_dir="${SHELLM_HOME}/data/${script##*/}"
+  elif ! [ -z "${XDG_DATA_HOME+x}" ]; then
+    data_dir="${XDG_DATA_HOME}/shellm_data/${script##*/}"
+  else
+    data_dir="${HOME}/.local/share/shellm_data/${script##*/}"
+  fi
+
+  if [ $# -eq 0 ]; then
+    echo "${data_dir}"
+    return 0
+  fi
 
   if [ ! -d "${data_dir}" ]; then
     mkdir -p "${data_dir}"
   fi
-  
+
   echo "${data_dir}"
 }
 
+## \usage home-data SCRIPT_NAME
 main "$@"

@@ -11,7 +11,7 @@ main() {
     -h|--help) shellman "$0"; exit 0 ;;
   esac
 
-  local d dir
+  local d dir test_file
   if [ $# -eq 0 ]; then
     dir="${PWD}"
   else
@@ -23,6 +23,10 @@ main() {
   for d in bin lib/env data man/man1 man/man3 tests; do
     mkdir -p "${dir}/$d"
   done
-  
+
+  for test_file in $(basher package-path shellm/home)/tests/{data.bash,test_{shellcheck,shellman}.bats}; do
+    cp "${test_file}" "${dir}/tests"
+  done
+
   echo 'shellm-source "env/hello.sh"' > "${dir}/profile"
 }
