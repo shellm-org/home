@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-shellm-source shellm/shellman/lib/shellman.sh
+source $(shellm-core-path)
 
-[ $# -eq 0 ] && shellman_usage
+if [ $# -eq 0 ]; then
+  doc --print-usage "$0"
+  exit 1
+fi
 
 get_template_path() {
   case $1 in

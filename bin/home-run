@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $(shellm-core-path)
+
 ## \usage home-run SCRIPT ARGS
 ## \brief Load shellm, set your home, then run a script.
 export XRUN=1

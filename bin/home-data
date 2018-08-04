@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-shellm-source shellm/shellman/lib/shellman.sh
+source $(shellm-core-path)
 
 main() {
   case "$1" in
