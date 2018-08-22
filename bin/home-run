@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source $(shellm-core-path)
 
 ## \usage home-run SCRIPT ARGS
 ## \brief Load shellm, set your home, then run a script.
@@ -11,7 +10,7 @@ if ! command -v basher &>/dev/null && [ -d "${HOME}/.basher/bin" ]; then
   eval "$(basher init - bash)"
 fi
 
-include shellm/shellm init.sh
+source $(shellm-core-path)
 
 shellm-source shellm/home/lib/home.sh
 home-set && home-source profile
