@@ -39,7 +39,7 @@ wiki: $(WIKIPAGES)
 	  --context project=home \
 		          scripts="$(SCRIPTS)" \
 		          libraries="$(LIBRARIES)"
-	shellman -tpath:templates/wiki_sidebar.md -o wiki/_Sidebar.md \
+	shellman -tpath:templates/wiki_sidebar.md -o wiki/_sidebar.md \
 	  --context project=home \
 	            scripts="$(SCRIPTS)" \
 	            libraries="$(LIBRARIES)"
