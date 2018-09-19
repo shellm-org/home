@@ -1,8 +1,8 @@
 #!/bin/bash
 
-
 ## \usage home-run SCRIPT ARGS
 ## \brief Load shellm, set your home, then run a script.
+
 export XRUN=1
 
 if ! command -v basher &>/dev/null && [ -d "${HOME}/.basher/bin" ]; then
@@ -12,7 +12,7 @@ fi
 
 source $(shellm-core-path)
 
-shellm-source shellm/home/lib/home.sh
+shellm-source shellm/home
 home-set && home-source profile
 
 "$@"
