@@ -8,7 +8,7 @@ load data
 }
 
 @test "shellcheck on libraries" {
-  if [ ! -n "${scripts}" ]; then
+  if [ ! -n "${libs}" ]; then
     skip "- no libraries to check"
   fi
   shellcheck -xe SC2148 ${libs}

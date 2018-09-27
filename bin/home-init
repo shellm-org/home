@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+## \brief Initialize a directory as a home.
+
+# shellcheck disable=SC1090,SC2046
 source $(shellm-core-path)
 
 main() {
@@ -22,6 +25,7 @@ main() {
     mkdir -p "${dir}/$d"
   done
 
+  # shellcheck disable=SC2016
   {
     echo "cat <<EOF"
     echo 'This message is printed from your first library file, located at ${SHELLM_HOME}/lib/env.'
@@ -40,4 +44,5 @@ main() {
   echo "Set it with 'home-set ${dir}', then 'home-source profile'"
 }
 
+## \usage home-init [DIRECTORY]
 main "$@"

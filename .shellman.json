@@ -1,0 +1,12 @@
+{
+  "namespace": "shellm",
+  "project": "home",
+  "title": "A home for your shell scripts!",
+  "subtitle": "Your shell environment in one place. Easy to sync. Feel at home on any machine.",
+  "readme_sections": [
+    "summary",
+    "demo",
+    "installation",
+    "usage"
+  ]
+}

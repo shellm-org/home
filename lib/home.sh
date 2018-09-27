@@ -59,11 +59,10 @@ home-set() {
   if ! echo "${LIBPATH}" | grep -q "${SHELLM_HOME}/lib"; then
     export LIBPATH="${SHELLM_HOME}/lib:${LIBPATH}"
   fi
+
+  if [ -f "${SHELLM_HOME}/.homerc" ]; then
+    # shellcheck disable=SC1090
+    . "${SHELLM_HOME}/.homerc"
+  fi
 }
 export -f home-set
-
-home-source() {
-  # shellcheck disable=SC1090
-  . "${SHELLM_HOME}/$1"
-}
-export -f home-source

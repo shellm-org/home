@@ -1,0 +1,36 @@
+# demo: charinterval=0
+workon py36
+cdrepo shellm/core/demo
+export PROFILE_PROMPT='${debian_chroot:+($debian_chroot)}\[\033[00;34m\]shellm demo \[\033[00;35m\]\$ \[\033[00m\]'
+c() { clear; }; export -f c
+e() { exit; }; export -f e
+c
+
+termtosvg -g 100x20 demo.svg -t window_frame  # demo: charinterval=0.05; sleep 2
+# Show where shellm is installed  # demo: sleep 0.5
+shellm-core-path  # demo: sleep 2
+# Let's source it  # demo: sleep 0.5
+source $(shellm-core-path)  # demo: sleep 1
+c
+# What do we have in LIBPATH?  # demo: sleep 0.5
+echo $LIBPATH  # demo: sleep 2
+# Let's add a custom directory  # demo: sleep 0.5
+tree my_lib  # demo: sleep 2
+export LIBPATH="$PWD/my_lib:$LIBPATH"  # demo: sleep 1
+c
+# Now let's source some libraries  # demo: sleep 0.5
+cat my_lib/some_function.sh  # demo: sleep 1
+shellm-source some_function.sh  # demo: sleep 1
+some_function hello!  # demo: sleep 1
+c
+# If there is an error when sourcing, shellm gives a warning:  # demo: sleep 0.5
+shellm-source failing_library.sh  # demo: sleep 1
+cat my_lib/failing_library.sh  # demo: sleep 2
+# The stack will show you the source tree (useful when debugging):  # demo: sleep 0.5
+shellm-source show_me_the_stack.sh  # demo: sleep 3
+c
+# shellm will source a file only once:  # demo: sleep 0.5
+shellm-source only_once.sh  # demo: sleep 1
+shellm-source only_once.sh  # demo: sleep 1
+
+e  # demo: sleep 1

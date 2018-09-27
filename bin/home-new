@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+## \brief Create a new file in your home.
+
+# shellcheck disable=SC1090,SC2046
 source $(shellm-core-path)
 
 if [ $# -eq 0 ]; then
@@ -21,7 +24,7 @@ get_template_path() {
     return 0
   fi
 
-  builtin_template_path="$(basher package-path shellm/home/templates/$1)"
+  builtin_template_path="$(basher package-path "shellm/home/templates/$1")"
   if [ -f "${builtin_template_path}" ]; then
     echo "${builtin_template_path}"
     return 0
@@ -60,11 +63,12 @@ main() {
     return 1
   fi
 
-  cp "${TEMPLATE}" "${SHELLM_HOME}/$1"
-  sed -i "s/{FILENAME}/$(basename "$1")/g" "${SHELLM_HOME}/$1"
+  cp "${TEMPLATE}" "${SHELLM_HOME}/${NEW_FILE_PATH}"
+  sed -i "s/{FILENAME}/$(basename "${NEW_FILE_PATH}")/g" "${SHELLM_HOME}/${NEW_FILE_PATH}"
 
   # Open the file
-  editor "${SHELLM_HOME}/$1"
+  editor "${SHELLM_HOME}/${NEW_FILE_PATH}"
 }
 
+## \usage home-new [-t TEMPLATE] FILEPATH
 main "$@"
