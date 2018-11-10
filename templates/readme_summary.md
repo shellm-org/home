@@ -19,3 +19,5 @@ My requirements:
 
 1. I want to feel at home on each of these machine. I want my shell environment wherever I am.
 2. I want it easily synced, and easily installed on new systems.
+
+`home` aims at solving that.

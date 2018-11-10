@@ -2,15 +2,15 @@
 
 ## \brief {FILENAME}
 
-shellm-source shellm/shellman/lib/shellman.sh
-
-[ $# -eq 0 ] && shellman_usage
+if [ $# -eq 0 ]; then
+  doc usage "$0"
+fi
 
 main() {
   case $1 in
     ## \option -h, --help
     ## Print this help and exit.
-    -h|--help) shellman "$0"; exit 0 ;;
+    -h|--help) doc "$0"; exit 0 ;;
   esac
 }
 

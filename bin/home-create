@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+## \brief Create a new home.
+
+# shellcheck disable=SC1090,SC2046
+source $(shellm-core-path)
+
+main() {
+  case "$1" in
+    ## \option -h, --help
+    ## Print this help and exit.
+    -h|--help) shellman "$0"; exit 0 ;;
+  esac
+
+  local d dir test_file
+  if [ $# -eq 0 ]; then
+    dir="${PWD}"
+  else
+    dir="$(cd "$1" && pwd || echo "$1")"
+    if [ ! -d "${dir}" ]; then
+      mkdir -p "${dir}" || return 1
+    fi
+  fi
+  for d in bin lib/env data man/man1 man/man3 tests; do
+    mkdir -p "${dir}/$d"
+  done
+
+  # shellcheck disable=SC2016
+  {
+    echo "cat <<EOF"
+    echo 'This message is printed from your first library file, located at ${SHELLM_HOME}/lib/env.'
+    echo "Feel free to delete it with 'home rm lib/env/hello.sh'"
+    echo "Or modify it with 'home open lib/env/hello.sh'."
+    echo "EOF"
+  } > "${dir}/lib/env/hello.sh"
+
+  for test_file in $(basher package-path shellm/home)/tests/{data.bash,test_{shellcheck,shellman}.bats}; do
+    cp "${test_file}" "${dir}/tests"
+  done
+
+  echo 'shellm-source "env/hello.sh"' > "${dir}/profile"
+
+  echo "home-create: home created in ${dir}"
+  echo "Set it with 'home-set ${dir}'"
+}
+
+## \usage home-create [DIRECTORY]
+main "$@"

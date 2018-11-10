@@ -60,9 +60,9 @@ home-set() {
     export LIBPATH="${SHELLM_HOME}/lib:${LIBPATH}"
   fi
 
-  if [ -f "${SHELLM_HOME}/.homerc" ]; then
+  if [ -f "${SHELLM_HOME}/profile" ]; then
     # shellcheck disable=SC1090
-    . "${SHELLM_HOME}/.homerc"
+    . "${SHELLM_HOME}/profile"
   fi
 }
 export -f home-set
