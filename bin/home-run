@@ -14,6 +14,6 @@ fi
 source $(shellm-core-path)
 
 shellm-source shellm/home
-home-set && home-source profile
+home-set
 
 "$@"
