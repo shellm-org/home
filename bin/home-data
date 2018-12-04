@@ -15,10 +15,10 @@ main() {
   local data_dir
   local script="$1"
 
-  if ! [ -z "${SHELLM_HOME+x}" ]; then
+  if [ -n "${SHELLM_HOME+x}" ]; then
     # shellcheck disable=SC2154
     data_dir="${SHELLM_HOME}/data/${script##*/}"
-  elif ! [ -z "${XDG_DATA_HOME+x}" ]; then
+  elif [ -n "${XDG_DATA_HOME+x}" ]; then
     data_dir="${XDG_DATA_HOME}/shellm_data/${script##*/}"
   else
     data_dir="${HOME}/.local/share/shellm_data/${script##*/}"
