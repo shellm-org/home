@@ -3,7 +3,7 @@
 ## \brief Return the path to a data directory and create it if needed.
 
 # shellcheck disable=SC1090,SC2046
-source $(shellm-core-path)
+source $(shellm init path bash)
 
 main() {
   case "$1" in

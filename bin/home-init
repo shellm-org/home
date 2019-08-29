@@ -22,7 +22,7 @@ main() {
     -h|--help) shellman "$0"; exit 0 ;;
     -)
       echo ". \"${shellm_core_path}\""
-      echo "shellm-source shellm/home"
+      echo "shellm source shellm/home"
       if [ -n "$2" ]; then
         echo "home-set \"$2\""
       else

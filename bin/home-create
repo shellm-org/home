@@ -38,7 +38,7 @@ main() {
     cp "${test_file}" "${dir}/tests"
   done
 
-  echo 'shellm-source "env/hello.sh"' > "${dir}/profile"
+  echo 'shellm source "env/hello.sh"' > "${dir}/profile"
 
   echo "home-create: home created in ${dir}"
   echo "Set it with 'home-set ${dir}'"

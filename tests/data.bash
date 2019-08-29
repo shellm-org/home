@@ -1,2 +1,2 @@
 source $(shellm-core-path)
-shellm-source shellm/home
+shellm source shellm/home

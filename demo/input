@@ -20,17 +20,17 @@ export LIBPATH="$PWD/my_lib:$LIBPATH"  # demo: sleep 1
 c
 # Now let's source some libraries  # demo: sleep 0.5
 cat my_lib/some_function.sh  # demo: sleep 1
-shellm-source some_function.sh  # demo: sleep 1
+shellm source some_function.sh  # demo: sleep 1
 some_function hello!  # demo: sleep 1
 c
 # If there is an error when sourcing, shellm gives a warning:  # demo: sleep 0.5
-shellm-source failing_library.sh  # demo: sleep 1
+shellm source failing_library.sh  # demo: sleep 1
 cat my_lib/failing_library.sh  # demo: sleep 2
 # The stack will show you the source tree (useful when debugging):  # demo: sleep 0.5
-shellm-source show_me_the_stack.sh  # demo: sleep 3
+shellm source show_me_the_stack.sh  # demo: sleep 3
 c
 # shellm will source a file only once:  # demo: sleep 0.5
-shellm-source only_once.sh  # demo: sleep 1
-shellm-source only_once.sh  # demo: sleep 1
+shellm source only_once.sh  # demo: sleep 1
+shellm source only_once.sh  # demo: sleep 1
 
 e  # demo: sleep 1
